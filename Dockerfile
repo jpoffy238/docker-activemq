@@ -15,4 +15,6 @@ RUN \
 WORKDIR $ACTIVEMQ_HOME
 EXPOSE 61616 8161
 
-CMD ["/bin/bash", "-c", "bin/activemq console"]
+COPY ./activemq.sh /
+
+ENTRYPOINT ["/activemq.sh"]
