@@ -6,7 +6,7 @@ ENV ACTIVEMQ apache-activemq-$ACTIVEMQ_VERSION
 ENV ACTIVEMQ_HOME /opt/activemq
 
 RUN \
-    wget http://archive.apache.org/dist/activemq/$ACTIVEMQ_VERSION/$ACTIVEMQ-bin.tar.gz && \
+    wget -q http://archive.apache.org/dist/activemq/$ACTIVEMQ_VERSION/$ACTIVEMQ-bin.tar.gz && \
     mkdir -p /opt && \
     tar xf $ACTIVEMQ-bin.tar.gz -C /opt/ && \
     rm $ACTIVEMQ-bin.tar.gz && \
