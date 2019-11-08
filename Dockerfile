@@ -1,26 +1,24 @@
-FROM cloudesire/java:7
+FROM azul/zulu-openjdk-alpine
 
-ENV ACTIVEMQ_VERSION 5.13.0
+
+ENV ACTIVEMQ_VERSION 5.15.10
 ENV ACTIVEMQ apache-activemq-$ACTIVEMQ_VERSION
 
-ENV ACTIVEMQ_HOME /opt/activemq
+ENV ACTACCOUNT act1appl
+ENV ACTIVEMQ_HOME /home/$ACTACCOUNT
 
-RUN \
-    apt-get update && \
-    apt-get install -y wget && \
-    wget -nv http://archive.apache.org/dist/activemq/$ACTIVEMQ_VERSION/$ACTIVEMQ-bin.tar.gz && \
-    apt-get remove -y --purge wget && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists && \
-    mkdir -p /opt && \
-    tar xf $ACTIVEMQ-bin.tar.gz -C /opt/ && \
-    rm $ACTIVEMQ-bin.tar.gz && \
-    ln -s /opt/$ACTIVEMQ $ACTIVEMQ_HOME
+RUN adduser  -D -s /bin/bash $ACTACCOUNT
+
+COPY $ACTIVEMQ-bin.tar.gz /tmp/$ACTIVEMQ-bin.tar.gz
+
+RUN tar xf /tmp/$ACTIVEMQ-bin.tar.gz -C /opt/ 
+RUN chown -R $ACTACCOUNT /opt/$ACTIVEMQ $ACTIVEMQ_HOME 
+RUN ln -s /opt/$ACTIVEMQ $ACTIVEMQ_HOME 
+RUN rm /tmp/$ACTIVEMQ-bin.tar.gz
 
 WORKDIR $ACTIVEMQ_HOME
-EXPOSE 61616 8161
+EXPOSE 61616 8161 5672
 
-COPY ./activemq.sh /
+USER $ACTACCOUNT
+ENTRYPOINT ["/opt/$ACTIVEMQ/bin/activemq start"]
 
-ENTRYPOINT ["/activemq.sh"]
