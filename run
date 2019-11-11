@@ -3,6 +3,7 @@ docker --host vulcan \
 	-p 61616:61616 \
 	-p 8161:8161 \
 	-p 5672:5672 \
-	-it \
+	-d \
+	-v /tmp
 	jpoffen/activemq:0.0.6
 
