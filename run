@@ -3,6 +3,11 @@ docker --host vulcan \
 	-p 61616:61616 \
 	-p 8161:8161 \
 	-p 5672:5672 \
+	--mount source=kahadb,destination=/opt/apache-activemq-5.15.10/data/kahadb \
+	--mount source=activemq-data,destination=/opt/apache-activemq-5.15.10/activemq-data \
+	-h actmq1 \
+	--link=actmq2 \
 	-d \
-	jpoffen/activemq:0.0.6
+	--name actmq1 \
+	jpoffen/activemq:0.0.7
 

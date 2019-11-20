@@ -1,0 +1,9 @@
+
+docker --host vulcan \
+	run \
+	--name hrcp \
+	-p 5432:5432 \
+	--mount source=pgdata,destination=/var/lib/postgresql/data \
+	-d \
+	postgres:latest
+
