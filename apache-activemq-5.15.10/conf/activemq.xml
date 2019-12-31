@@ -44,7 +44,7 @@
       <!-- match all queues -->
       <filteredKahaDB queue=">">
         <usage>
-         <storeUsage limit="1g" />
+         <storeUsage limit="256mb" />
         </usage>
         <persistenceAdapter>
           <kahaDB journalMaxFileLength="64mb"/>
@@ -115,10 +115,10 @@
                     <memoryUsage percentOfJvmHeap="70" />
                 </memoryUsage>
                 <storeUsage>
-                    <storeUsage limit="100 gb"/>
+                    <storeUsage limit="10 gb"/>
                 </storeUsage>
                 <tempUsage>
-                    <tempUsage limit="50 gb"/>
+                    <tempUsage limit="1 gb"/>
                 </tempUsage>
             </systemUsage>
         </systemUsage>
